@@ -1,6 +1,6 @@
 # Analog SPWM Generator using Op-Amps
 
-Fully analog implementation of Sinusoidal PWM (SPWM) using operational amplifiers - validated through LTspice simulation and real hardware measurements.
+Fully analog implementation of Sinusoidal PWM (SPWM) using operational amplifiers — validated through LTspice simulation and real hardware measurements.
 
 ---
 
@@ -55,6 +55,14 @@ This produces PWM where:
 
 ## Simulation (LTspice)
 
+### Circuit Schematic
+
+![LTspice Schematic](images/ltspice_schematic.png)
+
+> Complete LTspice schematic showing Wien Bridge oscillator, triangular generator, and comparator stages.
+
+### Waveform Output
+
 ![LTspice Simulation](images/ltspice_waveform.png)
 
 - Complete circuit simulated in LTspice  
@@ -64,6 +72,7 @@ This produces PWM where:
   - SPWM duty cycle modulation  
 
 **Simulation file:**
+
 
 simulation/spwm_generator.asc
 
@@ -88,14 +97,35 @@ simulation/spwm_generator.asc
 - Carrier frequency observed in ~5–10 kHz range  
 - Minor deviation due to component tolerances and non-ideal op-amp behavior  
 
+> Observed frequency deviation highlights real-world non-ideal effects such as op-amp bandwidth limitations and practical circuit constraints.
+
 ---
 
-## Design Calculations
+## Design Snapshot (Key Calculations)
 
-See:
+- Wien Bridge Oscillator:
+  - \( f = \frac{1}{2\pi RC} \)
+  - Designed for **50 Hz sine wave**
 
-/calculations/design_calculations.md
+- Triangular Wave Generator:
+  - Target: **~10 kHz carrier**
+  - Calculated: ~11.36 kHz  
+  - Observed: ~5–10 kHz  
 
+- Comparator:
+  - \( V_{sine} > V_{tri} \) → HIGH  
+  - \( V_{sine} < V_{tri} \) → LOW  
+
+📄 Full derivations:  
+👉 [View Detailed Calculations](calculations/design_calculations.md)
+
+---
+
+## Handwritten Calculations (Original Work)
+
+![Handwritten Calculations](calculations/design_calculations_handwritten.png)
+
+> Initial design calculations were performed manually before simulation and hardware implementation.
 
 ---
 
