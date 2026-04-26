@@ -187,3 +187,4 @@ simulation/spwm_generator.asc
 
 **Arya Dinesh**  
 B.Tech Electronics & Communication Engineering
+(https://github.com/AryaD-ece/analog-spwm-generator-opamps)
