@@ -1,5 +1,10 @@
 # Analog SPWM Generator using Op-Amps
 
+![Analog Design](https://img.shields.io/badge/Domain-Analog%20Design-blue)
+![Power Electronics](https://img.shields.io/badge/Field-Power%20Electronics-green)
+![LTspice](https://img.shields.io/badge/Tool-LTspice-orange)
+![Hardware Verified](https://img.shields.io/badge/Status-Hardware%20Verified-success)
+
 Fully analog implementation of **Sinusoidal Pulse Width Modulation (SPWM)** using operational amplifiers — designed, simulated in **LTspice**, and validated through real hardware measurements.
 
 ---
@@ -14,14 +19,15 @@ Fully analog implementation of **Sinusoidal Pulse Width Modulation (SPWM)** usin
 
 ## Overview
 
-This project demonstrates the generation of **SPWM (Sinusoidal Pulse Width Modulation)** using purely analog circuits without any microcontrollers or digital control.
+This project demonstrates SPWM generation using purely analog circuits, without any microcontrollers or digital control.
 
 A low-frequency sinusoidal reference signal is compared with a high-frequency triangular carrier to generate a PWM signal whose duty cycle follows the instantaneous amplitude of the sine wave.
 
 This technique is fundamental in **Power Electronics**, with applications in:
-- Inverters  
-- Motor drives  
-- Class-D amplifiers  
+
+- Power Inverters  
+- Motor Drives  
+- Class-D Audio Amplifiers  
 
 ---
 
@@ -33,11 +39,11 @@ This technique is fundamental in **Power Electronics**, with applications in:
 
 - **Wien Bridge Oscillator**
   - Generates stable **50 Hz sine wave**
-  - Uses diode-based amplitude stabilization  
+  - Diode-based stabilization maintains constant amplitude  
 
 - **Triangular Wave Generator**
   - Implemented using **integrator + Schmitt trigger**
-  - Produces **~10 kHz carrier waveform**  
+  - Produces **~10 kHz carrier waveform**
 
 - **Comparator**
   - Compares sine and triangular signals  
@@ -50,9 +56,9 @@ This technique is fundamental in **Power Electronics**, with applications in:
 - If \( V_{sine} > V_{tri} \) → Output HIGH  
 - If \( V_{sine} < V_{tri} \) → Output LOW  
 
-This results in:
+This produces PWM where:
 
-- Duty cycle proportional to sine amplitude  
+- Duty cycle varies with sine amplitude  
 - Wide pulses near sine peaks  
 - Narrow pulses near zero crossings  
 
@@ -64,7 +70,7 @@ This results in:
 
 ![LTspice Schematic](images/ltspice_schematic.png)
 
-> LTspice schematic showing oscillator, carrier generator, and comparator stages.
+> LTspice schematic showing Wien Bridge oscillator, triangular generator, and comparator stages.
 
 ### Waveform Output
 
@@ -76,10 +82,7 @@ This results in:
 - Carrier waveform (~10 kHz design target)  
 - SPWM duty cycle modulation  
 
-**Simulation File:**
-
-simulation/spwm_generator.asc
-
+👉 [Open LTspice Simulation File](simulation/spwm_generator.asc)
 
 ---
 
@@ -87,9 +90,9 @@ simulation/spwm_generator.asc
 
 ![Hardware](hardware/pcb_implementation.jpg)
 
-- Implemented on **zero PCB**  
-- Op-Amps: **LM741 / LM324**  
-- Supply: **±12V / ±15V dual rail**  
+- Implemented on **zero PCB**
+- Op-Amps used: **LM741 / LM324**
+- Power Supply: **±12V / ±15V dual rail**
 - Output verified using **Digital Storage Oscilloscope (DSO)**  
 
 ---
@@ -104,7 +107,7 @@ simulation/spwm_generator.asc
   - LTspice simulation  
   - Hardware output  
 
-> Observed deviation highlights real-world effects such as component tolerances, op-amp bandwidth limitations, and PCB parasitics.
+> The observed deviation between calculated and measured frequencies highlights practical analog design limitations such as op-amp bandwidth constraints and component tolerances.
 
 ---
 
@@ -149,7 +152,7 @@ simulation/spwm_generator.asc
 - DC-AC Power Inverters  
 - Variable Frequency Motor Drives  
 - Class-D Audio Amplifiers  
-- Analog Signal Modulation Systems  
+- Analog Modulation Systems  
 
 ---
 
@@ -165,9 +168,9 @@ simulation/spwm_generator.asc
 ## Future Improvements
 
 - Use high-speed / precision op-amps  
-- Add low-pass filter for waveform reconstruction  
-- Integrate with inverter power stage  
-- Optimize PCB layout for noise reduction  
+- Add low-pass filtering for waveform reconstruction  
+- Integrate with inverter stage  
+- Optimize PCB layout to reduce noise  
 
 ---
 
@@ -187,4 +190,3 @@ simulation/spwm_generator.asc
 
 **Arya Dinesh**  
 B.Tech Electronics & Communication Engineering
-(https://github.com/AryaD-ece/analog-spwm-generator-opamps)
