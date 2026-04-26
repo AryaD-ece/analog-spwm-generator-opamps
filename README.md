@@ -1,6 +1,6 @@
 # Analog SPWM Generator using Op-Amps
 
-Fully analog implementation of Sinusoidal PWM (SPWM) using operational amplifiers — validated through LTspice simulation and real hardware measurements.
+Fully analog implementation of **Sinusoidal Pulse Width Modulation (SPWM)** using operational amplifiers — designed, simulated in **LTspice**, and validated through real hardware measurements.
 
 ---
 
@@ -8,15 +8,20 @@ Fully analog implementation of Sinusoidal PWM (SPWM) using operational amplifier
 
 ![SPWM Output](images/spwm_dso_output.png)
 
+> Hardware-verified SPWM output showing duty cycle modulation with sinusoidal reference.
+
 ---
 
 ## Overview
 
-This project implements SPWM generation using purely analog circuits, without any microcontrollers.
+This project demonstrates the generation of **SPWM (Sinusoidal Pulse Width Modulation)** using purely analog circuits without any microcontrollers or digital control.
 
-A low-frequency sinusoidal reference is compared with a high-frequency triangular carrier to produce a PWM signal whose duty cycle follows the sine waveform.
+A low-frequency sinusoidal reference signal is compared with a high-frequency triangular carrier to generate a PWM signal whose duty cycle follows the instantaneous amplitude of the sine wave.
 
-This technique is widely used in power electronics for applications such as inverters, motor drives, and audio amplification.
+This technique is fundamental in **Power Electronics**, with applications in:
+- Inverters  
+- Motor drives  
+- Class-D amplifiers  
 
 ---
 
@@ -27,16 +32,16 @@ This technique is widely used in power electronics for applications such as inve
 ### Functional Blocks
 
 - **Wien Bridge Oscillator**
-  - Generates 50 Hz sine wave  
-  - Diode-based stabilization maintains amplitude  
+  - Generates stable **50 Hz sine wave**
+  - Uses diode-based amplitude stabilization  
 
 - **Triangular Wave Generator**
-  - Integrator + Schmitt trigger  
-  - Generates ~10 kHz carrier  
+  - Implemented using **integrator + Schmitt trigger**
+  - Produces **~10 kHz carrier waveform**  
 
 - **Comparator**
   - Compares sine and triangular signals  
-  - Produces SPWM output  
+  - Generates SPWM output  
 
 ---
 
@@ -45,10 +50,10 @@ This technique is widely used in power electronics for applications such as inve
 - If \( V_{sine} > V_{tri} \) → Output HIGH  
 - If \( V_{sine} < V_{tri} \) → Output LOW  
 
-This produces PWM where:
+This results in:
 
-- Duty cycle varies with sine amplitude  
-- Wide pulses at peaks  
+- Duty cycle proportional to sine amplitude  
+- Wide pulses near sine peaks  
 - Narrow pulses near zero crossings  
 
 ---
@@ -59,20 +64,19 @@ This produces PWM where:
 
 ![LTspice Schematic](images/ltspice_schematic.png)
 
-> Complete LTspice schematic showing Wien Bridge oscillator, triangular generator, and comparator stages.
+> LTspice schematic showing oscillator, carrier generator, and comparator stages.
 
 ### Waveform Output
 
 ![LTspice Simulation](images/ltspice_waveform.png)
 
-- Complete circuit simulated in LTspice  
-- Verified:
-  - 50 Hz sine generation  
-  - ~10 kHz carrier waveform  
-  - SPWM duty cycle modulation  
+### Verification
 
-**Simulation file:**
+- Sine wave generation (~50 Hz)  
+- Carrier waveform (~10 kHz design target)  
+- SPWM duty cycle modulation  
 
+**Simulation File:**
 
 simulation/spwm_generator.asc
 
@@ -83,10 +87,10 @@ simulation/spwm_generator.asc
 
 ![Hardware](hardware/pcb_implementation.jpg)
 
-- Built on zero PCB  
-- Op-Amps: LM741 / LM324  
-- Supply: ±12V / ±15V  
-- Output verified using Digital Storage Oscilloscope (DSO)
+- Implemented on **zero PCB**  
+- Op-Amps: **LM741 / LM324**  
+- Supply: **±12V / ±15V dual rail**  
+- Output verified using **Digital Storage Oscilloscope (DSO)**  
 
 ---
 
@@ -94,10 +98,13 @@ simulation/spwm_generator.asc
 
 - Stable SPWM waveform successfully generated  
 - Duty cycle accurately follows sinusoidal envelope  
-- Carrier frequency observed in ~5–10 kHz range  
-- Minor deviation due to component tolerances and non-ideal op-amp behavior  
+- Carrier frequency observed in **~5–10 kHz range**  
+- Strong agreement between:
+  - Theoretical design  
+  - LTspice simulation  
+  - Hardware output  
 
-> Observed frequency deviation highlights real-world non-ideal effects such as op-amp bandwidth limitations and practical circuit constraints.
+> Observed deviation highlights real-world effects such as component tolerances, op-amp bandwidth limitations, and PCB parasitics.
 
 ---
 
@@ -129,45 +136,54 @@ simulation/spwm_generator.asc
 
 ---
 
+## Documentation
+
+📄 Full project report (design methodology, calculations, simulation, and hardware validation):
+
+👉 [Download Report (PDF)](docs/spwm_report.pdf)
+
+---
+
 ## Applications
 
-- Power inverters  
-- Motor drives  
-- Class-D amplifiers  
+- DC-AC Power Inverters  
+- Variable Frequency Motor Drives  
+- Class-D Audio Amplifiers  
+- Analog Signal Modulation Systems  
 
 ---
 
 ## Key Learnings
 
-- Analog circuits require precise stability control  
-- Component tolerances directly impact frequency accuracy  
-- Diode stabilization is critical in oscillator design  
-- Analog SPWM reveals real-world non-ideal behavior  
+- Analog circuits require precise **stability and gain control**  
+- Component tolerances significantly affect frequency accuracy  
+- Diode-based stabilization is critical in oscillator design  
+- Analog SPWM reveals real-world non-idealities often abstracted in digital systems  
 
 ---
 
 ## Future Improvements
 
-- Use high-speed op-amps for better switching performance  
-- Add output filtering (low-pass)  
-- Integrate with inverter stage  
-- Optimize PCB layout to reduce noise  
+- Use high-speed / precision op-amps  
+- Add low-pass filter for waveform reconstruction  
+- Integrate with inverter power stage  
+- Optimize PCB layout for noise reduction  
 
 ---
 
 ## Repository Structure
 
 
-/simulation
-/hardware
-/images
-/docs
-/calculations
+/simulation → LTspice files and simulation data
+/hardware → PCB implementation images
+/images → Waveforms, diagrams, schematics
+/docs → Project report
+/calculations → Design calculations (clean + handwritten)
 
 
 ---
 
 ## Author
 
-Arya Dinesh  
+**Arya Dinesh**  
 B.Tech Electronics & Communication Engineering
