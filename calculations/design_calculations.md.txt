@@ -1,0 +1,82 @@
+# Design Calculations
+
+## 1. Wien Bridge Oscillator (Sine Wave Generator)
+
+Target frequency: **50 Hz**
+
+### Formula
+f = 1 / (2πRC)
+
+### Component Selection
+- C = 100 nF  
+- R = 1 / (2π × 50 × 100 × 10⁻⁹)  
+- R ≈ 31.83 kΩ  
+
+**Selected standard value:**  
+- R = 33 kΩ  
+
+---
+
+### Gain Condition
+
+For sustained oscillations:
+
+Av ≥ 3  
+Av = 1 + (Rf / Ri)
+
+Setting:
+- Av = 3 → Rf = 2Ri  
+
+**Implemented using:**
+- R5 = 24 kΩ  
+- R4 = 10 kΩ  
+
+---
+
+### Amplitude Stabilization
+
+- Diodes used in feedback path  
+- Prevent oscillation decay and clipping  
+- Maintain stable sine amplitude  
+
+---
+
+## 2. Triangular Wave Generator (Carrier)
+
+Target frequency: **~10 kHz**
+
+### Formula
+f = R2 / (4 × R3 × R1 × C1)
+
+### Selected Components
+- R1 = 2.2 kΩ  
+- R2 = 10 kΩ  
+- R3 = 10 kΩ  
+- C1 = 10 nF  
+
+### Calculated Frequency
+f ≈ 11.36 kHz  
+
+---
+
+## 3. Comparator (SPWM Generation)
+
+### Condition
+- If Vsine > Vtri → Vout = HIGH  
+- If Vsine < Vtri → Vout = LOW  
+
+### Output Characteristics
+- PWM frequency ≈ carrier frequency  
+- Duty cycle follows sinusoidal reference  
+
+---
+
+## Practical Note
+
+Observed carrier frequency (~5–10 kHz) differs slightly from calculated value due to:
+
+- Component tolerances  
+- Op-amp non-idealities  
+- PCB parasitic effects  
+
+This behavior is expected in analog implementations.
