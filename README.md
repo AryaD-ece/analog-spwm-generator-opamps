@@ -1,6 +1,6 @@
 # Analog SPWM Generator using Op-Amps
 
-Design, simulation, and hardware implementation of a Sinusoidal PWM (SPWM) generator using analog operational amplifiers.
+Fully analog implementation of Sinusoidal PWM (SPWM) using operational amplifiers - validated through LTspice simulation and real hardware measurements.
 
 ---
 
@@ -12,11 +12,11 @@ Design, simulation, and hardware implementation of a Sinusoidal PWM (SPWM) gener
 
 ## Overview
 
-This project implements SPWM using purely analog circuits.
+This project implements SPWM generation using purely analog circuits, without any microcontrollers.
 
-Instead of using microcontrollers, the system generates PWM by comparing a sinusoidal reference with a high-frequency triangular carrier.
+A low-frequency sinusoidal reference is compared with a high-frequency triangular carrier to produce a PWM signal whose duty cycle follows the sine waveform.
 
-PWM signals are widely used in power electronics for controlling power delivery and waveform synthesis.
+This technique is widely used in power electronics for applications such as inverters, motor drives, and audio amplification.
 
 ---
 
@@ -26,27 +26,28 @@ PWM signals are widely used in power electronics for controlling power delivery 
 
 ### Functional Blocks
 
-1. **Wien Bridge Oscillator**
-   - Generates 50 Hz sine wave
-   - Uses diode stabilization for amplitude control
+- **Wien Bridge Oscillator**
+  - Generates 50 Hz sine wave  
+  - Diode-based stabilization maintains amplitude  
 
-2. **Triangular Wave Generator**
-   - Integrator + Schmitt trigger
-   - Produces ~10 kHz carrier
+- **Triangular Wave Generator**
+  - Integrator + Schmitt trigger  
+  - Generates ~10 kHz carrier  
 
-3. **Comparator**
-   - Compares sine and triangular wave
-   - Outputs SPWM signal
+- **Comparator**
+  - Compares sine and triangular signals  
+  - Produces SPWM output  
 
 ---
 
 ## Working Principle
 
-- If Vsine > Vtri → Output HIGH  
-- If Vsine < Vtri → Output LOW  
+- If \( V_{sine} > V_{tri} \) → Output HIGH  
+- If \( V_{sine} < V_{tri} \) → Output LOW  
 
 This produces PWM where:
-- Duty cycle follows sine amplitude  
+
+- Duty cycle varies with sine amplitude  
 - Wide pulses at peaks  
 - Narrow pulses near zero crossings  
 
@@ -56,13 +57,13 @@ This produces PWM where:
 
 ![LTspice Simulation](images/ltspice_waveform.png)
 
-- Circuit designed and verified in LTspice  
+- Complete circuit simulated in LTspice  
 - Verified:
-  - Sine wave generation (~50 Hz)
-  - Carrier waveform (~10 kHz design target)
-  - SPWM waveform behavior  
+  - 50 Hz sine generation  
+  - ~10 kHz carrier waveform  
+  - SPWM duty cycle modulation  
 
-Simulation file:
+**Simulation file:**
 
 simulation/spwm_generator.asc
 
@@ -73,22 +74,19 @@ simulation/spwm_generator.asc
 
 ![Hardware](hardware/pcb_implementation.jpg)
 
-- Implemented on zero PCB  
-- Op-amps: LM741 / LM324  
-- Power supply: ±12V / ±15V  
+- Built on zero PCB  
+- Op-Amps: LM741 / LM324  
+- Supply: ±12V / ±15V  
 - Output verified using Digital Storage Oscilloscope (DSO)
 
 ---
 
 ## Results
 
-- Stable SPWM waveform observed  
-- Duty cycle varies according to sinusoidal envelope  
-- Carrier frequency ≈ 5–10 kHz (variation due to component tolerances)  
-- Strong agreement between:
-  - Theoretical design  
-  - Simulation  
-  - Hardware output  
+- Stable SPWM waveform successfully generated  
+- Duty cycle accurately follows sinusoidal envelope  
+- Carrier frequency observed in ~5–10 kHz range  
+- Minor deviation due to component tolerances and non-ideal op-amp behavior  
 
 ---
 
@@ -112,18 +110,18 @@ See:
 ## Key Learnings
 
 - Analog circuits require precise stability control  
-- Component tolerances significantly affect frequency  
-- Diode-based stabilization is essential in oscillator design  
-- Analog SPWM reveals non-ideal circuit behavior  
+- Component tolerances directly impact frequency accuracy  
+- Diode stabilization is critical in oscillator design  
+- Analog SPWM reveals real-world non-ideal behavior  
 
 ---
 
 ## Future Improvements
 
-- Use high-speed op-amps for improved switching performance  
-- Add low-pass filtering for waveform reconstruction  
+- Use high-speed op-amps for better switching performance  
+- Add output filtering (low-pass)  
 - Integrate with inverter stage  
-- Improve PCB layout to reduce noise  
+- Optimize PCB layout to reduce noise  
 
 ---
 
@@ -136,14 +134,6 @@ See:
 /docs
 /calculations
 
-
----
-
-## References
-
-- Sedra & Smith, *Microelectronic Circuits*  
-- Boylestad & Nashelsky, *Electronic Devices and Circuit Theory*  
-- Texas Instruments, PWM and analog design application notes  
 
 ---
 
