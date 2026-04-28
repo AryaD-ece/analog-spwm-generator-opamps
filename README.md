@@ -190,3 +190,13 @@ This produces PWM where:
 
 **Arya Dinesh**  
 B.Tech Electronics & Communication Engineering
+
+📫 *Let’s connect:* www.linkedin.com/in/aryadinesh2005 
+
+---
+
+⭐ *If you found this project interesting, feel free to star this repository!*  
+🧠 *Open for collaboration or discussion on FPGA, digital design, and embedded systems.*
+
+---
+
